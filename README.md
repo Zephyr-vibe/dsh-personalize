@@ -61,6 +61,20 @@ No setup required — everything is derived automatically at runtime.
 - Agent tools (when auto-collection is enabled): `memory_create`, `memory_list`, `memory_delete`
 - Persistence is host-owned plain JSON under the DSH home (`personalize/config.json`, `personalize/memory.json`), written atomically
 
+## Changelog（更新日志）
+
+### 0.1.1
+
+- Fixed tool output contract: memory tools now render with the correct `(args, value)` signature and return `ContentBlock[]` arrays (previously broke session-history validation)
+- Serialized concurrent memory/config writes (no lost updates or duplicate entries)
+- Startup-load gate so the UI/tools never read default config before the real config is loaded
+- Proper HTTP error status codes (400 bad request / 500 internal); 1MB request-body limit
+- Deletion confirmations for every memory entry (including auto-generated ones); graceful `DSH_HOME` resolution (blank treated as unset)
+
+### 0.1.0
+
+- Initial release: custom instructions, local long-term memory (manual + auto-collection), reply-tone presets, bilingual UI
+
 ## License
 
 MIT — © 2026 Zephyr-vibe
