@@ -1,0 +1,4 @@
+# dsh-personalize bundle patch: mounts the plugin as one cordis loader entry.
+- insert:
+    - id: dsh-personalize
+      name: 'dsh-personalize'
