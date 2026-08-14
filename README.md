@@ -28,16 +28,16 @@ A DSH web plugin: **per-host personalization** — global custom instructions, l
 
 ## Install
 
-### Via npm registry
-
-```sh
-dsh plugin --profile web add dsh-personalize@<version>
-```
-
-### Directly from GitHub
+### Directly from GitHub (recommended)
 
 ```sh
 dsh plugin --profile web add github:Zephyr-vibe/dsh-personalize
+```
+
+### Via npm registry (once published)
+
+```sh
+dsh plugin --profile web add dsh-personalize@0.1.1
 ```
 
 安装后重启 web 端，即可在「设置」中看到「个性化」入口。
