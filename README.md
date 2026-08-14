@@ -26,19 +26,35 @@ A DSH web plugin: **per-host personalization** — global custom instructions, l
 - **回复语气预设**：温和贴心 / 高效直接 / 严谨专业 / 风趣幽默 / **自定义** — 作为提示段注入。
 - 中英双语界面，随 DSH 语言设置切换。
 
-## Install
+## Install（安装）
 
-### Directly from GitHub (recommended)
+### 方式一：直接 tarball 安装
 
-```sh
-dsh plugin --profile web add github:Zephyr-vibe/dsh-personalize
-```
-
-### Via npm registry (once published)
+Option 1: Direct tarball install.
 
 ```sh
-dsh plugin --profile web add dsh-personalize@0.1.1
+dsh plugin --profile web add https://codeload.github.com/Zephyr-vibe/dsh-personalize/tar.gz/refs/heads/main
 ```
+
+如果 pnpm 拦截构建脚本，在命令末尾加 `--ignore-scripts`：
+
+If pnpm blocks build scripts, append `--ignore-scripts`:
+
+```sh
+dsh plugin --profile web add https://codeload.github.com/Zephyr-vibe/dsh-personalize/tar.gz/refs/heads/main --ignore-scripts
+```
+
+### 方式二：让 agent 安装
+
+Option 2: Let an agent install it — tell your DSH agent:
+
+```text
+帮我把这个项目安装为插件：https://github.com/Zephyr-vibe/dsh-personalize
+```
+
+The agent downloads the repo, places it into the profile's `node_modules`, and registers it in `dsh.profile.bundles`.
+
+agent 会下载项目、放入 profile 的 `node_modules` 并注册到 `dsh.profile.bundles`。
 
 安装后重启 web 端，即可在「设置」中看到「个性化」入口。
 
