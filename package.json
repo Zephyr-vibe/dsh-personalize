@@ -1,6 +1,6 @@
 {
   "name": "dsh-personalize",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "DSH web plugin: per-host personalization — global custom instructions, local long-term memory (collect / retain / integrate / manage), and reply tone presets.",
   "type": "module",
   "main": "lib/index.js",
@@ -24,7 +24,8 @@
       "inject": [
         "@deepseek-ai/dsh-client-runtime",
         "@deepseek-ai/dsh-client-locale",
-        "@deepseek-ai/dsh-client-ui-slots"
+        "@deepseek-ai/dsh-client-ui-slots",
+        "@deepseek-ai/dsh-client-ui-primitives"
       ],
       "platform": "web"
     }

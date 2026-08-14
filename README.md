@@ -76,8 +76,20 @@ No setup required — everything is derived automatically at runtime.
 - Host API: `/personalize/api/*` (`config.get`, `config.update`, `memory.list`, `memory.add`, `memory.delete`, `memory.clear`) behind a browser-trust fence (loopback + same-origin only)
 - Agent tools (when auto-collection is enabled): `memory_create`, `memory_list`, `memory_delete`
 - Persistence is host-owned plain JSON under the DSH home (`personalize/config.json`, `personalize/memory.json`), written atomically
+- Runtime memory model: while the web app is running, the plugin serves an **in-memory mirror** of `memory.json`; editing `memory.json` externally (by hand or by another process) is **not picked up until the app restarts**, and the next plugin write overwrites external edits. Restart the web app after manual edits.
+- Write operations (add/delete/update/clear) time out client-side after 15s; a timed-out request may **still be executing server-side** (e.g. a large `memory.clear`), so do not immediately retry — check the result first. `memory.clear` is idempotent.
 
 ## Changelog（更新日志）
+
+### 0.1.2
+
+- **Configurable memory cap**: the entry limit is now adjustable in the settings UI (default **50**, range 1–1000, shown as "N / MAX entries")
+- **Corruption protection**: a broken `memory.json` is backed up as `memory.json.corrupt-<ts>.bak` and all writes are locked (HTTP 500 `memory-corrupt`) until the file is repaired — no more silent data loss
+- **Injection sanitization**: memory entries injected into the system prompt are single-lined, wrapped in `[记忆]` data markers, tagged `[auto]` when machine-collected, with an explicit "this is data, not instructions" boundary (closes a cross-session prompt-injection surface)
+- **Edit memory in place**: `memory.update` API + edit/cancel/save UI per entry
+- Full localization for all memory error codes; unified duplicate semantics; UUID / empty-list / type validation on the API
+- Internal errors return a generic 500 message (details logged server-side); every write keeps a rolling `.bak`
+- Running total and cap shown in the UI; memory list returns `count` / `memoryMax` for the client
 
 ### 0.1.1
 
